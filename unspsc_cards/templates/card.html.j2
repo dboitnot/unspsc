@@ -44,9 +44,9 @@
 </style>
 </head>
 <body>
-<main class="card">
+<main class="card" data-pagefind-body data-pagefind-filter="level:{{ name }}">
   {% if breadcrumbs %}
-  <nav class="breadcrumb" aria-label="Breadcrumb">
+  <nav class="breadcrumb" aria-label="Breadcrumb" data-pagefind-ignore>
     {% for c in breadcrumbs %}<a href="{{ c.href }}">{{ c.title }}</a><span class="sep">›</span>{% endfor %}<span class="current">{{ title }}</span>
   </nav>
   {% endif %}
@@ -58,7 +58,7 @@
   {% if synonym %}<p class="meta"><strong>Synonyms:</strong> {{ synonym }}</p>{% endif %}
   {% if acronym %}<p class="meta"><strong>Acronym:</strong> {{ acronym }}</p>{% endif %}
   {% if children %}
-  <section class="children">
+  <section class="children" data-pagefind-ignore>
     <h2>{{ child_label_plural }} ({{ children|length }})</h2>
     <ul>
       {% for c in children %}

@@ -197,3 +197,19 @@ def test_render_alpha_landing_html(sample_tree):
 
 def test_render_index_has_alpha_cta(sample_tree):
     assert 'href="a-z/index.html"' in render_node(sample_tree)
+
+
+# --- Pagefind integration -----------------------------------------------------
+
+
+def test_card_is_pagefind_indexable(sample_tree):
+    html = render_node(_cls(sample_tree))
+    assert "data-pagefind-body" in html
+    assert 'data-pagefind-filter="level:Class"' in html
+
+
+def test_index_has_search_box_and_is_pagefind_ignored(sample_tree):
+    html = render_node(sample_tree)
+    assert 'id="search"' in html
+    assert "pagefind-ui.js" in html
+    assert "data-pagefind-ignore" in html
