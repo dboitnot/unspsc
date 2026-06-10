@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} — Index</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1rem;
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f4f5f7; color: #1c2024;
+  }
+  .card {
+    max-width: 60rem; margin: 0 auto; padding: 1.75rem 2rem;
+    background: #fff; border: 1px solid #d8dbe0; border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .eyebrow { margin: 0 0 .25rem; font-size: .8rem; letter-spacing: .04em;
+             text-transform: uppercase; color: #6b7280; }
+  h1 { margin: 0 0 .35rem; font-size: 1.9rem; }
+  .subtitle { margin: 0 0 1rem; color: #6b7280; }
+  .cta { display: inline-block; margin: 0 0 1.5rem; padding: .55rem .95rem; background: #2563eb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; }
+  .cta:hover { background: #1e4fd1; }
+  .code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6rem; height: 1.6rem; flex: none;
+    background: #2563eb; color: #fff; border-radius: 6px;
+    font-weight: 700; font-size: .85rem;
+  }
+  nav.toc { border: 1px solid #e5e7eb; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 2rem; background: #fafbfc; }
+  nav.toc h2 { margin: 0 0 .75rem; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: #6b7280; }
+  nav.toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+  nav.toc a { display: flex; gap: .6rem; align-items: center; padding: .35rem .4rem; border-radius: 8px; color: #1c2024; text-decoration: none; }
+  nav.toc a:hover { background: #eef2ff; }
+  nav.toc .count { margin-left: auto; color: #9ca3af; font-size: .85rem; }
+  section.group { margin-top: 2rem; }
+  section.group > h2 {
+    display: flex; gap: .6rem; align-items: center;
+    font-size: 1.15rem; margin: 0 0 .25rem;
+    padding-bottom: .5rem; border-bottom: 2px solid #ececf0;
+  }
+  section.group .toplink { margin-left: auto; font-size: .75rem; font-weight: 400; }
+  section.group .toplink a { color: #9ca3af; text-decoration: none; }
+  ul.segments { list-style: none; margin: .75rem 0 0; padding: 0; }
+  ul.segments a { display: flex; gap: .85rem; align-items: baseline; padding: .45rem .6rem; border-radius: 8px; color: #1c2024; text-decoration: none; }
+  ul.segments a:hover { background: #eef2ff; }
+  ul.segments .code { color: #2563eb; font-size: .85rem; min-width: 6.5rem; }
+</style>
+</head>
+<body id="top">
+<main class="card">
+  <header>
+    <p class="eyebrow">United Nations Standard Products and Services Code</p>
+    <h1>{{ title }}</h1>
+    <p class="subtitle">{{ segment_count }} segments across {{ group_count }} categories. Pick a category, then drill down Segment → Family → Class → Commodity.</p>
+    <a class="cta" href="{{ alpha_href }}">Browse the A–Z index →</a>
+  </header>
+
+  <nav class="toc" aria-label="Categories">
+    <h2>Categories</h2>
+    <ul>
+      {% for t in toc %}
+      <li><a href="#{{ t.anchor }}"><span class="letter">{{ t.letter }}</span><span>{{ t.name }}</span><span class="count">{{ t.count }}</span></a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  {% for sec in sections %}
+  <section class="group" id="{{ sec.anchor }}">
+    <h2><span class="letter">{{ sec.letter }}</span><span>{{ sec.name }}</span><span class="toplink"><a href="#top">↑ top</a></span></h2>
+    <ul class="segments">
+      {% for s in sec.segments %}
+      <li><a href="{{ s.href }}"><span class="code">{{ s.display }}</span><span>{{ s.title }}</span></a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</main>
+</body>
+</html>

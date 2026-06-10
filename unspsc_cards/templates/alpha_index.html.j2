@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A–Z Index — UNSPSC</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 2rem 1rem; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f4f5f7; color: #1c2024; }
+  .card { max-width: 60rem; margin: 0 auto; padding: 1.75rem 2rem; background: #fff; border: 1px solid #d8dbe0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .breadcrumb { font-size: .85rem; margin-bottom: 1rem; color: #6b7280; }
+  .breadcrumb a { color: #2563eb; text-decoration: none; }
+  .breadcrumb .sep { margin: 0 .35rem; color: #b0b4ba; }
+  .breadcrumb .current { color: #1c2024; font-weight: 600; }
+  .eyebrow { margin: 0 0 .25rem; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: #6b7280; }
+  h1 { margin: 0 0 .35rem; font-size: 1.9rem; }
+  .subtitle { margin: 0 0 1.25rem; color: #6b7280; }
+  .azbar { display: flex; flex-wrap: wrap; gap: .3rem; margin: 0 0 1.5rem; }
+  .azbar a { display: inline-flex; min-width: 1.9rem; justify-content: center; padding: .35rem .45rem; border-radius: 6px; background: #eef2ff; color: #2563eb; text-decoration: none; font-weight: 700; }
+  .azbar a:hover { background: #2563eb; color: #fff; }
+  ul.pagelist { list-style: none; margin: 0; padding: 0; border-top: 1px solid #ececf0; }
+  ul.pagelist li { border-bottom: 1px solid #f1f2f4; }
+  ul.pagelist a { display: flex; gap: 1rem; align-items: baseline; padding: .45rem .5rem; color: #1c2024; text-decoration: none; }
+  ul.pagelist a:hover { background: #eef2ff; }
+  ul.pagelist .rng { flex: 1; }
+  ul.pagelist .cnt { color: #9ca3af; font-size: .85rem; }
+</style>
+</head>
+<body>
+<main class="card">
+  <nav class="breadcrumb"><a href="{{ home_href }}">UNSPSC</a><span class="sep">›</span><span class="current">A–Z index</span></nav>
+  <header>
+    <p class="eyebrow">Alphabetical concordance</p>
+    <h1>A–Z Index</h1>
+    <p class="subtitle">{{ total }} entries across {{ page_count }} pages. Jump to a letter, or browse the pages below.</p>
+  </header>
+  <nav class="azbar" aria-label="Jump to letter">
+    {% for j in jumps %}<a href="{{ j.href }}">{{ j.label }}</a>{% endfor %}
+  </nav>
+  <ul class="pagelist">
+    {% for p in page_list %}
+    <li><a href="{{ p.href }}"><span class="rng">{{ p.first_title }} <span style="color:#b0b4ba">…</span> {{ p.last_title }}</span><span class="cnt">{{ p.count }}</span></a></li>
+    {% endfor %}
+  </ul>
+</main>
+</body>
+</html>

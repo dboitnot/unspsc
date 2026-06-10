@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }} — UNSPSC</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1rem;
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f4f5f7; color: #1c2024;
+  }
+  .card {
+    max-width: 52rem; margin: 0 auto; padding: 1.75rem 2rem;
+    background: #fff; border: 1px solid #d8dbe0; border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .breadcrumb { font-size: .85rem; margin-bottom: 1.25rem; color: #6b7280; }
+  .breadcrumb a { color: #2563eb; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 .35rem; color: #b0b4ba; }
+  .breadcrumb .current { color: #1c2024; font-weight: 600; }
+  .level { margin: 0 0 .25rem; font-size: .8rem; letter-spacing: .04em;
+           text-transform: uppercase; color: #6b7280; }
+  .code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .level .code { color: #1c2024; }
+  h1 { margin: 0 0 1rem; font-size: 1.6rem; line-height: 1.25; }
+  .definition { margin: 0 0 1rem; color: #2b2f36; }
+  .meta { margin: .25rem 0; font-size: .9rem; color: #4b5563; }
+  .children { margin-top: 1.5rem; border-top: 1px solid #ececf0; padding-top: 1rem; }
+  .children h2 { font-size: 1rem; margin: 0 0 .6rem; color: #374151; }
+  .children ul { list-style: none; margin: 0; padding: 0; }
+  .children li { margin: 0; }
+  .children a {
+    display: flex; gap: .75rem; align-items: baseline;
+    padding: .45rem .6rem; border-radius: 8px;
+    color: #1c2024; text-decoration: none;
+  }
+  .children a:hover { background: #eef2ff; }
+  .children .code { color: #2563eb; font-size: .85rem; min-width: 7.5rem; }
+  .leaf { margin-top: 1.5rem; color: #6b7280; font-style: italic; }
+</style>
+</head>
+<body>
+<main class="card">
+  {% if breadcrumbs %}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    {% for c in breadcrumbs %}<a href="{{ c.href }}">{{ c.title }}</a><span class="sep">›</span>{% endfor %}<span class="current">{{ title }}</span>
+  </nav>
+  {% endif %}
+  <header>
+    <p class="level">{{ name }}{% if display %} · <span class="code">{{ display }}</span>{% endif %}</p>
+    <h1>{{ title }}</h1>
+  </header>
+  {% if definition %}<p class="definition">{{ definition }}</p>{% endif %}
+  {% if synonym %}<p class="meta"><strong>Synonyms:</strong> {{ synonym }}</p>{% endif %}
+  {% if acronym %}<p class="meta"><strong>Acronym:</strong> {{ acronym }}</p>{% endif %}
+  {% if children %}
+  <section class="children">
+    <h2>{{ child_label_plural }} ({{ children|length }})</h2>
+    <ul>
+      {% for c in children %}
+      <li><a href="{{ c.href }}"><span class="code">{{ c.display }}</span><span>{{ c.title }}</span></a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% elif name != "Commodity" %}
+  <p class="leaf">No sub-categories.</p>
+  {% endif %}
+</main>
+</body>
+</html>
